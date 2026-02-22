@@ -1,37 +1,57 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { ConvexReactClient } from 'convex/react';
+import {
+	Authenticated,
+	AuthLoading,
+	ConvexReactClient,
+	Unauthenticated,
+} from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
-import { ClerkProvider, useAuth } from '@clerk/nextjs';
+import {
+	ClerkProvider,
+	SignUpButton,
+	SignInButton,
+	useAuth,
+} from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/custom/themes-provider';
+import UnauthenticatedView from '@/features/auth/components/UnauthenticatedView';
+import AuthLoadingView from '@/features/auth/components/authLoadingView';
 
 if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
-  throw new Error('Missing NEXT_PUBLIC_CONVEX_URL in your .env.local file');
+	throw new Error('Missing NEXT_PUBLIC_CONVEX_URL in your .env.local file');
 }
 
-const convex = new ConvexReactClient(
-  process.env.NEXT_PUBLIC_CONVEX_URL
-);
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
 
 export default function ConvexClientProvider({
-  children,
+	children,
 }: {
-  children: ReactNode;
+	children: ReactNode;
 }) {
-  return (
-    <ClerkProvider>
-      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        <ThemeProvider
-                    attribute="class"
-                    defaultTheme="dark"
-                    enableSystem
-                    disableTransitionOnChange
-                  >
-        {children}
-        </ThemeProvider>
-      </ConvexProviderWithClerk>
-      
-    </ClerkProvider>
-  );
+	return (
+		<ClerkProvider>
+			<ConvexProviderWithClerk
+				client={convex}
+				useAuth={useAuth}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="dark"
+					enableSystem
+					disableTransitionOnChange>
+					<Authenticated>{children}</Authenticated>
+					<Unauthenticated>
+						{/* <SignInButton/>
+                        <SignUpButton/> */}
+
+						<UnauthenticatedView />
+					</Unauthenticated>
+					<AuthLoading>
+						Auth Loading .....
+						<AuthLoadingView />
+					</AuthLoading>
+				</ThemeProvider>
+			</ConvexProviderWithClerk>
+		</ClerkProvider>
+	);
 }
