@@ -8,7 +8,7 @@ export const create = mutation({
 	handler: async(ctx, args) => {
 		await ctx.db.insert('projects', {
 			name: args.name,
-			ownerId: '12gv3',
+			ownerId: '123',
 		});
 	},
 });
