@@ -27,7 +27,9 @@ function page() {
           faster.
         </CardDescription>
       </CardHeader>
-    </Card>
+    </Card>*
+
+    <h1>Hello DevPilot</h1>
     </div>
   )
 }
