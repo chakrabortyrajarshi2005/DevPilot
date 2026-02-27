@@ -8,12 +8,7 @@ export default function Home() {
 	const createProject = useMutation(api.projects.create);
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			<Button
-				onClick={() =>
-					createProject({
-						name: 'New Project',
-					})
-				}>
+			<Button onClick={() => createProject({ name: 'New Project' })}>
 				Add new
 			</Button>
 			{projects?.map((project) => {

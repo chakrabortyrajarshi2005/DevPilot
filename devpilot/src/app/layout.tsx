@@ -27,7 +27,6 @@ export default function RootLayout({
   return (
       <html lang="en" suppressHydrationWarning>
         <body className={`${inter.variable} ${plexMono.variable} antialiased`}>
-        
             <ConvexClientProvider>
               {children}
             </ConvexClientProvider>

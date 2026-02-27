@@ -16,7 +16,7 @@ import {
 } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/custom/themes-provider';
 import UnauthenticatedView from '@/features/auth/components/UnauthenticatedView';
-import AuthLoadingView from '@/features/auth/components/authLoadingView';
+import AuthLoadingView from '@/features/auth/components/AuthLoadingView';
 
 if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
 	throw new Error('Missing NEXT_PUBLIC_CONVEX_URL in your .env.local file');
@@ -43,7 +43,6 @@ export default function ConvexClientProvider({
 					<Unauthenticated>
 						{/* <SignInButton/>
                         <SignUpButton/> */}
-
 						<UnauthenticatedView />
 					</Unauthenticated>
 					<AuthLoading>
